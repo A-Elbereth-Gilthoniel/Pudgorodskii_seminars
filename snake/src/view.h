@@ -21,8 +21,8 @@ public:
 
 private:
     void galaxy(int width, int length);
-    void draw_snake();
+    void draw_snake(Snake* snake, const string color);
     void draw_star();
-    void clrscr();
+    void clrscr(vector<coord> clear_coords);
     Model* settings;
 };

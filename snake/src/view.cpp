@@ -16,29 +16,24 @@ View* View::get_view(int a)
 
 void TView::draw()
 {
-    draw_snake();
+    draw_snake(settings->snake, GREEN);
+    for (Snake* snake : settings->snake_bots)
+        draw_snake(snake, RED);
     draw_star();
 }
 
 //==============================================
 
-void TView::clrscr()
+void TView::clrscr(vector<coord> clear_coords)
 {
-    list<coord>::iterator it;
-    for (it = settings->snake->place.begin(); it != settings->snake->place.end(); ++it)
+    for (coord i : clear_coords)
     {
         cout << "\033[s";
-        cout << "\033[" << (*it).y + 1 << "B";
-        cout << "\033["<< (*it).x + 2 << "C";
+        cout << "\033[" << i.y + 1 << "B";
+        cout << "\033["<< i.x + 2 << "C";
         cout << "\033[D ";
         cout << "\033[u";
     }
-    cout << "\033[s";
-    cout << "\033[" << settings->star->star_place.y + 1 << "B";
-    cout << "\033[" << settings->star->star_place.x + 2 << "C";
-    cout << "\033[D ";
-    cout << "\033[u";
-
 }
 
 //==============================================
@@ -115,31 +110,30 @@ void TView::run()
                 usleep((int)(1000000/FPS - (end.tv_sec - start.tv_sec)*1000000 - (end.tv_nsec - start.tv_nsec)/1000));
         }
 
-        clrscr();
-        settings->update_model();
+        clrscr(settings->update_model());
         draw();
     }
-    clrscr();
+    // clrscr();
     set_old_input();
 }
 
 //==============================================
 
-void TView::draw_snake()
+void TView::draw_snake(Snake* snake, const string color)
 {
     list<coord>::iterator it;
-    for (it = settings->snake->place.begin(); it != --settings->snake->place.end(); ++it)
+    for (it = snake->place.begin(); it != --snake->place.end(); ++it)
     {
-        cout << "\033[s" << GREEN;
+        cout << "\033[s" << color;
         cout << "\033[" << (*it).y + 1 << "B";
         cout << "\033["<< (*it).x + 2 << "C";
         cout << "\033[D#";
-        cout << GREEN << "\033[u";
+        cout << color << "\033[u";
     }
-    cout << "\033[s" << GREEN;
+    cout << "\033[s" << color;
     cout << "\033[" << (*it).y + 1 << "B";
     cout << "\033[" << (*it).x + 2 << "C";
-    switch (settings->snake->head)
+    switch (snake->head)
     {
         case UP:
             cout << "\033[D^";
@@ -154,16 +148,19 @@ void TView::draw_snake()
             cout << "\033[D>";
             break;
     }
-    cout << GREEN <<"\033[u";
+    cout << color <<"\033[u";
 }
 
 //===============================================
 
 void TView::draw_star()
 {
-    cout << "\033[s";
-    cout << "\033[" << settings->star->star_place.y + 1 << "B";
-    cout << "\033[" << settings->star->star_place.x + 2 << "C";
-    cout << "\033[D*";
-    cout << "\033[u";
+    for (int i = 0; i < settings->bots_size + 1; i++)
+    {
+        cout << "\033[s";
+        cout << "\033[" << settings->stars[i]->star_place.y + 1 << "B";
+        cout << "\033[" << settings->stars[i]->star_place.x + 2 << "C";
+        cout << "\033[D*";
+        cout << "\033[u";
+    }
 }

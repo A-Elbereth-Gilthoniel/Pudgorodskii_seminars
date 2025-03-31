@@ -12,6 +12,8 @@
 #include <termios.h>
 #include <fcntl.h>
 #include <poll.h>
+#include <unordered_set>
+#include <queue>
 
 using namespace std;
 
