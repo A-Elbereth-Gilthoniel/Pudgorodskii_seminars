@@ -21,8 +21,26 @@ public:
 
 private:
     void galaxy(int width, int length);
-    void draw_snake(Snake* snake, const string color);
+    void draw_snake(Snake* snake, const std::string color);
     void draw_star();
-    void clrscr(vector<coord> clear_coords);
+    void clrscr(std::vector<coord> clear_coords);
     Model* settings;
+};
+
+//============================================
+
+class GView : public View {
+public:
+    void draw();
+    void set_model(Model* m);
+    void run();
+
+
+private:
+    sf::Texture texture_red, texture_green, texture_star;
+    sf::RenderWindow window;
+    Model* settings;
+    void check_keyboard_events(sf::RenderWindow &window);
+    void draw_snake(Snake* snake, const std::string color);
+    void draw_star();
 };

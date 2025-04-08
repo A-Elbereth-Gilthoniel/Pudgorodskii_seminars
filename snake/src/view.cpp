@@ -9,6 +9,11 @@ View* View::get_view(int a)
         TView* b = new TView;
         return b;
     }
+    else if (a == 2)
+    {
+        GView* b = new GView;
+        return b;
+    }
     return NULL;
 }
 
@@ -24,15 +29,15 @@ void TView::draw()
 
 //==============================================
 
-void TView::clrscr(vector<coord> clear_coords)
+void TView::clrscr(std::vector<coord> clear_coords)
 {
     for (coord i : clear_coords)
     {
-        cout << "\033[s";
-        cout << "\033[" << i.y + 1 << "B";
-        cout << "\033["<< i.x + 2 << "C";
-        cout << "\033[D ";
-        cout << "\033[u";
+        std::cout << "\033[s";
+        std::cout << "\033[" << i.y + 1 << "B";
+        std::cout << "\033["<< i.x + 2 << "C";
+        std::cout << "\033[D ";
+        std::cout << "\033[u";
     }
 }
 
@@ -40,22 +45,22 @@ void TView::clrscr(vector<coord> clear_coords)
 
 void TView::galaxy(int width, int length)
 {
-    cout << "\033[s";
-    cout << RED;
-    cout << string(width + 2, '-') << endl;
+    std::cout << "\033[s";
+    std::cout << RED;
+    std::cout << std::string(width + 2, '-') << std::endl;
 
     for (int i = 0; i < length; i++)
     {
-            cout << "|";
-            cout << string(width, ' ');
-            cout << "|";
-            cout << endl;
+            std::cout << "|";
+            std::cout << std::string(width, ' ');
+            std::cout << "|";
+            std::cout << std::endl;
     }
 
-    cout << string(width + 2, '-') << endl;
-    cout << RED;
+    std::cout << std::string(width + 2, '-') << std::endl;
+    std::cout << RED;
 
-    cout << "\033[u";
+    std::cout << "\033[u";
 }
 
 //==============================================
@@ -119,36 +124,36 @@ void TView::run()
 
 //==============================================
 
-void TView::draw_snake(Snake* snake, const string color)
+void TView::draw_snake(Snake* snake, const std::string color)
 {
-    list<coord>::iterator it;
+    std::list<coord>::iterator it;
     for (it = snake->place.begin(); it != --snake->place.end(); ++it)
     {
-        cout << "\033[s" << color;
-        cout << "\033[" << (*it).y + 1 << "B";
-        cout << "\033["<< (*it).x + 2 << "C";
-        cout << "\033[D#";
-        cout << color << "\033[u";
+        std::cout << "\033[s" << color;
+        std::cout << "\033[" << (*it).y + 1 << "B";
+        std::cout << "\033["<< (*it).x + 2 << "C";
+        std::cout << "\033[D#";
+        std::cout << color << "\033[u";
     }
-    cout << "\033[s" << color;
-    cout << "\033[" << (*it).y + 1 << "B";
-    cout << "\033[" << (*it).x + 2 << "C";
+    std::cout << "\033[s" << color;
+    std::cout << "\033[" << (*it).y + 1 << "B";
+    std::cout << "\033[" << (*it).x + 2 << "C";
     switch (snake->head)
     {
         case UP:
-            cout << "\033[D^";
+            std::cout << "\033[D^";
             break;
         case DOWN:
-            cout << "\033[Dv";
+            std::cout << "\033[Dv";
             break;
         case LEFT:
-            cout << "\033[D<";
+            std::cout << "\033[D<";
             break;
         case RIGHT:
-            cout << "\033[D>";
+            std::cout << "\033[D>";
             break;
     }
-    cout << color <<"\033[u";
+    std::cout << color <<"\033[u";
 }
 
 //===============================================
@@ -157,10 +162,10 @@ void TView::draw_star()
 {
     for (int i = 0; i < settings->bots_size + 1; i++)
     {
-        cout << "\033[s";
-        cout << "\033[" << settings->stars[i]->star_place.y + 1 << "B";
-        cout << "\033[" << settings->stars[i]->star_place.x + 2 << "C";
-        cout << "\033[D*";
-        cout << "\033[u";
+        std::cout << "\033[s";
+        std::cout << "\033[" << settings->stars[i]->star_place.y + 1 << "B";
+        std::cout << "\033[" << settings->stars[i]->star_place.x + 2 << "C";
+        std::cout << "\033[D*";
+        std::cout << "\033[u";
     }
 }

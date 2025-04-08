@@ -11,7 +11,7 @@ OBJ = $(patsubst $(PREF_SRC)%.cpp, $(PREF_OBJ)%.o, $(SRC))
 
 
 $(TARGET) : $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET)
+	$(CC) $(OBJ) -o $(TARGET) -lsfml-graphics -lsfml-window -lsfml-system
 
 $(PREF_OBJ)%.o : $(PREF_SRC)%.cpp
 	$(CC) -c $< -o $@

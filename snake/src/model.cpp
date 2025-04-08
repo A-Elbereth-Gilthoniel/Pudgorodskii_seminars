@@ -51,9 +51,9 @@ void Model::update_direction(enum direction dir)
 
 //======================================================
 
-vector<coord> Model::update_model()
+std::vector<coord> Model::update_model()
 {
-    vector<coord> clear_coords;
+    std::vector<coord> clear_coords;
     coord clear_snake_coord = snake->update(snake_coords);
     if (clear_snake_coord != coord(-1, -1))
         clear_coords.push_back(clear_snake_coord);
@@ -102,7 +102,7 @@ vector<coord> Model::update_model()
 
 //======================================================
 
-coord Snake::update(unordered_set<coord>& snake_coords)
+coord Snake::update(std::unordered_set<coord>& snake_coords)
 {
     waiting++;
     if (waiting >= FPS/SPEED)
@@ -150,11 +150,11 @@ coord Snake::update(unordered_set<coord>& snake_coords)
 
 coord Star::get_star()
 {
-    random_device rd;
-    mt19937 gen(rd());
+    std::random_device rd;
+    std::mt19937 gen(rd());
 
-    uniform_int_distribution<> dis(1, width-1);
-    uniform_int_distribution<> dis2(1, length-1);
+    std::uniform_int_distribution<> dis(1, width-1);
+    std::uniform_int_distribution<> dis2(1, length-1);
 
     star_place = coord(dis(gen), dis2(gen));
     return star_place;
@@ -162,7 +162,7 @@ coord Star::get_star()
 
 //==========================================
 
-void Snake::increase(unordered_set<coord>& snake_coords)
+void Snake::increase(std::unordered_set<coord>& snake_coords)
 {
     auto it = --place.end();
     coord last = *it;
@@ -190,7 +190,7 @@ void Snake::increase(unordered_set<coord>& snake_coords)
 
 //=====================================================
 
-void SnakeBot::analyse(vector<Star*> stars, unordered_set<coord> snake_coords)
+void SnakeBot::analyse(std::vector<Star*> stars, std::unordered_set<coord> snake_coords)
 {
     coord head_coord = *(--place.end());
     int dist;

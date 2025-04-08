@@ -13,12 +13,14 @@
 #include <fcntl.h>
 #include <poll.h>
 #include <unordered_set>
-#include <queue>
+#include <SFML/Graphics.hpp>
 
-using namespace std;
+// using namespace std;
 
 #define LENGTH 20
 #define WIDTH 50
+#define WINDOW_HEIGHT 1000
+#define WINDOW_WIDTH 1920
 #define SNAKE_COLOR 31
 #define FIELD_COLOR 32
 #define RED "\033[31m"
